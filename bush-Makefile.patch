@@ -1,0 +1,174 @@
+diff -Nur bush-0.9.3.orig/ADAVOX-0.51/main/Makefile bush-0.9.3/ADAVOX-0.51/main/Makefile
+--- bush-0.9.3.orig/ADAVOX-0.51/main/Makefile	2003-10-16 05:08:47.000000000 +0200
++++ bush-0.9.3/ADAVOX-0.51/main/Makefile	2004-03-04 21:34:42.000000000 +0100
+@@ -11,7 +11,6 @@
+ #
+ # MODIFY THE CPU= LINE OUT IF YOU ARE NOT RUNNING ON A PENTIUM
+ #
+-CPU=pentiumpro # -m486
+ 
+ #
+ # MODIFY THE NEXT LINES WHEN DEBUGGING (NB: Do not use -O1 or higher)
+@@ -22,9 +21,9 @@
+ INC=	-I../bc -I../wc
+ LIB=	-largs ../wc/cglue.o
+ 
+-COPTS=	-Wall $(OPTZ) -m$(CPU)
++COPTS=	-Wall $(OPTZ)
+ AOPTS=  $(INC) -gnatf $(GNATOPTS)
+-AOPTZ=  $(OPTZ) -m$(CPU)
++AOPTZ=  $(OPTZ)
+ 
+ CC=     gcc
+ 
+diff -Nur bush-0.9.3.orig/ADAVOX-0.51/Makefile bush-0.9.3/ADAVOX-0.51/Makefile
+--- bush-0.9.3.orig/ADAVOX-0.51/Makefile	2003-10-16 05:08:41.000000000 +0200
++++ bush-0.9.3/ADAVOX-0.51/Makefile	2004-03-04 21:48:42.000000000 +0100
+@@ -8,14 +8,12 @@
+ #
+ # To override, example: $ make CPU=486 INSTDIR=/opt/local/bin
+ #
+-INSTDIR=/usr/local/bin
+-CPU=pentiumpro			
+-OPTZ=
++INSTDIR=/usr/bin
+ GNATOPTS=-gnato -gnata -gnatn -q -c -i
+ 
+ all:
+-	(cd ./wc   ; $(MAKE) -$(MAKEFLAGS) all)
+-	(cd ./main ; $(MAKE) -$(MAKEFLAGS) INSTDIR=$(INSTDIR) CPU=$(CPU) OPTZ=$(OPTZ) all)
++	(cd ./wc   ; $(MAKE) -$(MAKEFLAGS) all CFLAGS="$(CFLAGS)")
++	(cd ./main ; $(MAKE) -$(MAKEFLAGS) all INSTDIR=$(INSTDIR) CFLAGS="$(CFLAGS)")
+ 
+ clean:
+ 	(cd ./wc   ; $(MAKE) -$(MAKEFLAGS) clean)
+diff -Nur bush-0.9.3.orig/apq-2.1/eg/Makefile bush-0.9.3/apq-2.1/eg/Makefile
+--- bush-0.9.3.orig/apq-2.1/eg/Makefile	2003-09-24 21:56:28.000000000 +0200
++++ bush-0.9.3/apq-2.1/eg/Makefile	2004-03-04 21:46:15.000000000 +0100
+@@ -7,7 +7,7 @@
+ 
+ #DBG=-g
+ CC=gcc
+-COPTS=-c -Wall
++COPTS=-c -Wall $(CFLAGS)
+ AOPTS=$(DBG) -gnato -gnata -gnatf
+ 
+ .c.o:
+diff -Nur bush-0.9.3.orig/apq-2.1/Makefile bush-0.9.3/apq-2.1/Makefile
+--- bush-0.9.3.orig/apq-2.1/Makefile	2003-09-24 21:56:23.000000000 +0200
++++ bush-0.9.3/apq-2.1/Makefile	2004-03-04 22:06:56.000000000 +0100
+@@ -10,16 +10,14 @@
+ DISTFILE=apq-$(VERSION).tar.gz
+ 
+ #DBG=-g
+-OPTZ=-O0
+ 
+ CC=gcc
+ 
+-ZOPTS=$(DBG) $(OPTZ)
+-COPTS=-Wall $(ZOPTS)
++COPTS="-Wall $(CFLAGS)"
+ AOPTS=-gnata -gnatf -gnato -gnatwp $(ZOPTS)
+ 
+ .c.o:
+-	$(CC) -c $(COPTS) $(ZOPTS) $(PG_INCL) $(MY_INCL) $< -o $*.o
++	$(CC) -c $(COPTS) $(PG_INCL) $(MY_INCL) $< -o $*.o
+ 
+ all:	setup$(HAVE_MY) mysql$(HAVE_MY) postgresql$(HAVE_PG) libapq.a finish
+ 
+@@ -40,7 +38,7 @@
+ 	ADA_INCLUDE_PATH=. ADA_OBJECTS_PATH=. gnatmake -c $(AOPTS) comp_mysql
+ 
+ c_mysql.o: c_mysql.c
+-	$(CC) -c $(COPTS) $(ZOPTS) $(MY_INCL) c_mysql.c -o c_mysql.o
++	$(CC) -c $(COPTS) $(MY_INCL) c_mysql.c -o c_mysql.o
+ 
+ apq-mysql.ads: apq-mysql.ads-in mysql_generr.c mysql_xcr2 mysql_xcr3
+ 	@rm -f mysql_errmsg.h mysql_generr
+@@ -97,7 +95,7 @@
+ 	rm -f mysql_errmsg.h mysql_type_codes.h mysql_generr Makeincl tmysql apq-mysql.ads
+ 	rm -f libapq.a GNUmakefile
+ 	rm -fr ./release $(DISTFILE)
+-	cd ./eg; $(MAKE) clobber
++	cd ./eg; $(MAKE) clobber CFLAGS="$(CFLAGS)"
+ 	rm -f apq-1.93-win32-2.7.1.tar.gz
+ 
+ manual: apq-manual.pdf
+diff -Nur bush-0.9.3.orig/Makefile bush-0.9.3/Makefile
+--- bush-0.9.3.orig/Makefile	2003-11-29 22:12:41.000000000 +0100
++++ bush-0.9.3/Makefile	2004-03-04 21:42:50.000000000 +0100
+@@ -15,21 +15,21 @@
+ 	@echo "    http://www.dwheeler.com/adacgi"
+ 	@echo "---------------------------------------------------------------"
+ 	@echo
+-	gmake -C adacgi-1.6
++	make -C adacgi-1.6 "CFLAGS=$(CFLAGS)"
+ 	@echo
+ 	@echo "---------------------------------------------------------------"
+ 	@echo "  Making AdaVOX (Wav/AU Player)"
+ 	@echo "    http://home.cogeco.ca/~ve3wwg"
+ 	@echo "---------------------------------------------------------------"
+ 	@echo
+-	gmake -C ADAVOX-0.51
++	make -C ADAVOX-0.51 CFLAGS="$(CFLAGS)"
+ 	@echo
+ 	@echo "---------------------------------------------------------------"
+ 	@echo "  Making APQ (PostgreSQL/MySQL DBI)"
+ 	@echo "    http://home.cogeco.ca/~ve3wwg"
+ 	@echo "---------------------------------------------------------------"
+ 	@echo
+-	gmake -C apq-2.1/
++	make -C apq-2.1/ CFLAGS="$(CFLAGS)"
+ 	@echo
+ 	@echo "---------------------------------------------------------------"
+ 	@echo " Making BUSH"
+@@ -73,20 +73,20 @@
+ 	@echo "Making AdaCGI"
+ 	@echo "---------------------------------------------------------------"
+ 	@echo
+-	gmake -C adacgi-1.6
++	make -C adacgi-1.6 CFLAGS="$(CFLAGS)"
+ 	@echo
+ 	@echo "---------------------------------------------------------------"
+ 	@echo "Making AdaVOX"
+ 	@echo "---------------------------------------------------------------"
+ 	@echo
+-	gmake -C ADAVOX-0.51
++	make -C ADAVOX-0.51 CFLAGS="$(CFLAGS)"
+ 	@echo
+ 	@echo "---------------------------------------------------------------"
+ 	@echo "  Making APQ (PostgreSQL/MySQL DBI)"
+ 	@echo "    http://home.cogeco.ca/~ve3wwg"
+ 	@echo "---------------------------------------------------------------"
+ 	@echo
+-	gmake -C apq-2.1/
++	make -C apq-2.1/ CFLAGS="$(CFLAGS)"
+ 	@echo
+ 	@echo "---------------------------------------------------------------"
+ 	@echo "Making BUSH"
+@@ -97,9 +97,9 @@
+ 	gnatlink bush.ali ./ADAVOX-0.51/wc/cglue.o c_os.o $(LIBS)
+ 
+ clean:
+-	gmake -C adacgi-1.6 clean
+-	gmake -C apq-2.1 clean
+-	gmake -C ADAVOX-0.51 clean
++	make -C adacgi-1.6 clean
++	make -C apq-2.1 clean
++	make -C ADAVOX-0.51 clean
+ 	rm -f *.o *.ali t.t t.bush core bush.zip bush
+ 
+ test:	all
+@@ -135,10 +135,10 @@
+ 	@echo "Don't forget to unpack and repack under a descriptive directory"
+ 
+ install:
+-	install --mode=555 bush /usr/local/bin/bush
++	install --mode=555 bush $(DESTDIR)/bin/bush
+ 
+ uninstall:
+-	rm /usr/local/bin/bush
++	rm $(DESTDIR)/bin/bush
+ 
+ help:
+ 	@echo "First you need one of these"
