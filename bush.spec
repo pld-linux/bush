@@ -51,6 +51,8 @@ make linux
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/bin
 
+mv -f doc html
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -76,6 +78,6 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc TODO README COPYING html/*
+%doc TODO README COPYING html
 
 %attr(755,root,root) /bin/bush
