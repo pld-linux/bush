@@ -19,31 +19,32 @@ Requires:	libgnat
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-BUSH, the Business Shell, is a powerful Linux/UNIX shell for designing secure,
-reliable scripts that can be later compiled as a fast executable programs.
-It can also be used an an interactive login shell or to generate
-Java Virtual Machine or .Net applications. BUSH is a robust and readable
-alternative to BASH, CSH, and (to a certain extent) Python and PERL.
-BUSH comes with 12 built-in packages including numerics, string processing,
-sound and database access. 
+BUSH, the Business Shell, is a powerful Linux/UNIX shell for designing
+secure, reliable scripts that can be later compiled as a fast
+executable programs. It can also be used an an interactive login shell
+or to generate Java Virtual Machine or .Net applications. BUSH is a
+robust and readable alternative to BASH, CSH, and (to a certain
+extent) Python and PERL. BUSH comes with 12 built-in packages
+including numerics, string processing, sound and database access.
 
 %description -l pl
-BUSH, Pow³oka Biznesowa jest pow³ok± dla systemów Linux/UNIX o bogatych
-mo¿liwo¶ciach. Stworzona jest z my¶l± o konstruowaniu bezpiecznych i
-niezawodnych skryptów, które mog± potem zostaæ skompilowane do postaci
-szybkich programów wykonywalnych. Mo¿e byæ ona równie¿ u¿ywana jako
-pow³oka zg³oszeniowa, lub u¿yta do generowania aplikacji Java Virtual Machine
-lub .Net. BUSH jest mocn± i czyteln± alternatyw± w stosunku do pow³ok
-BASH, CSH, a tak¿e (w pewnym sensie) do jêzyków takich jak Python czy PERL.
-BUSH zawiera 12 wbudowanych pakietów w³±czaj±c w to operacje na
-liczbach, przetwarzanie ci±gów znaków, d¼wiêki, oraz dostêp do baz danych.
+BUSH, Pow³oka Biznesowa jest pow³ok± dla systemów Linux/UNIX o
+bogatych mo¿liwo¶ciach. Stworzona jest z my¶l± o konstruowaniu
+bezpiecznych i niezawodnych skryptów, które mog± potem zostaæ
+skompilowane do postaci szybkich programów wykonywalnych. Mo¿e byæ ona
+równie¿ u¿ywana jako pow³oka zg³oszeniowa, lub u¿yta do generowania
+aplikacji Java Virtual Machine lub .Net. BUSH jest mocn± i czyteln±
+alternatyw± w stosunku do pow³ok BASH, CSH, a tak¿e (w pewnym sensie)
+do jêzyków takich jak Python czy PERL. BUSH zawiera 12 wbudowanych
+pakietów w³±czaj±c w to operacje na liczbach, przetwarzanie ci±gów
+znaków, d¼wiêki, oraz dostêp do baz danych.
 
 %prep
 %setup -q
 %patch0 -p1
 
 %build
-make linux
+%{__make} linux
 %{__make} \
 	CC="%{__cc}" CFLAGS="%{rpmcflags}"
 
