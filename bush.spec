@@ -1,11 +1,9 @@
-#
-##
 Summary:	Business Shell (BUSH)
 Summary(pl):	Pow³oka Biznesowa (BUSH)
 Name:		bush
 Version:	0.9.3
 Release:	1
-License:	GPL
+License:	GPL v2+
 Group:		Applications/Shells
 Source0:	http://tardis.dyn.dhs.org/smiab_download/other_projects/%{name}-%{version}-src.tgz
 # Source0-md5:	05f4719e91b7e0f3194d8c4a16c2720d
@@ -46,7 +44,8 @@ znaków, d¼wiêki, oraz dostêp do baz danych.
 %build
 %{__make} linux
 %{__make} \
-	CC="%{__cc}" CFLAGS="%{rpmcflags}"
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -79,6 +78,5 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc TODO README COPYING html
-
+%doc README TODO html
 %attr(755,root,root) /bin/bush
