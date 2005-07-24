@@ -16,6 +16,8 @@ Requires(preun):	fileutils
 Requires:	libgnat
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_bindir		/bin
+
 %description
 BUSH, the Business Shell, is a powerful Linux/UNIX shell for designing
 secure, reliable scripts that can be later compiled as a fast
@@ -49,7 +51,7 @@ znaków, d¼wiêki, oraz dostêp do baz danych.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/bin
+install -d $RPM_BUILD_ROOT%{_bindir}
 
 mv -f doc html
 
@@ -79,4 +81,4 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README TODO html
-%attr(755,root,root) /bin/bush
+%attr(755,root,root) %{_bindir}/bush
