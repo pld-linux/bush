@@ -1,5 +1,5 @@
 Summary:	Business Shell (BUSH)
-Summary(pl):	Pow³oka Biznesowa (BUSH)
+Summary(pl.UTF-8):   PowÅ‚oka Biznesowa (BUSH)
 Name:		bush
 Version:	0.9.3
 Release:	1
@@ -27,17 +27,17 @@ robust and readable alternative to BASH, CSH, and (to a certain
 extent) Python and PERL. BUSH comes with 12 built-in packages
 including numerics, string processing, sound and database access.
 
-%description -l pl
-BUSH, Pow³oka Biznesowa jest pow³ok± dla systemów Linux/UNIX o
-bogatych mo¿liwo¶ciach. Stworzona jest z my¶l± o konstruowaniu
-bezpiecznych i niezawodnych skryptów, które mog± potem zostaæ
-skompilowane do postaci szybkich programów wykonywalnych. Mo¿e byæ ona
-równie¿ u¿ywana jako pow³oka zg³oszeniowa, lub u¿yta do generowania
-aplikacji Java Virtual Machine lub .Net. BUSH jest mocn± i czyteln±
-alternatyw± w stosunku do pow³ok BASH, CSH, a tak¿e (w pewnym sensie)
-do jêzyków takich jak Python czy PERL. BUSH zawiera 12 wbudowanych
-pakietów w³±czaj±c w to operacje na liczbach, przetwarzanie ci±gów
-znaków, d¼wiêki, oraz dostêp do baz danych.
+%description -l pl.UTF-8
+BUSH, PowÅ‚oka Biznesowa jest powÅ‚okÄ… dla systemÃ³w Linux/UNIX o
+bogatych moÅ¼liwoÅ›ciach. Stworzona jest z myÅ›lÄ… o konstruowaniu
+bezpiecznych i niezawodnych skryptÃ³w, ktÃ³re mogÄ… potem zostaÄ‡
+skompilowane do postaci szybkich programÃ³w wykonywalnych. MoÅ¼e byÄ‡ ona
+rÃ³wnieÅ¼ uÅ¼ywana jako powÅ‚oka zgÅ‚oszeniowa, lub uÅ¼yta do generowania
+aplikacji Java Virtual Machine lub .Net. BUSH jest mocnÄ… i czytelnÄ…
+alternatywÄ… w stosunku do powÅ‚ok BASH, CSH, a takÅ¼e (w pewnym sensie)
+do jÄ™zykÃ³w takich jak Python czy PERL. BUSH zawiera 12 wbudowanych
+pakietÃ³w wÅ‚Ä…czajÄ…c w to operacje na liczbach, przetwarzanie ciÄ…gÃ³w
+znakÃ³w, dÅºwiÄ™ki, oraz dostÄ™p do baz danych.
 
 %prep
 %setup -q
