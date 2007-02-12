@@ -1,5 +1,5 @@
 Summary:	Business Shell (BUSH)
-Summary(pl.UTF-8):   Powłoka Biznesowa (BUSH)
+Summary(pl.UTF-8):	Powłoka Biznesowa (BUSH)
 Name:		bush
 Version:	0.9.3
 Release:	1
